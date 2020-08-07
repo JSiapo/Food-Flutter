@@ -12,8 +12,8 @@ class Header extends StatelessWidget {
       'https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466_960_720.jpg';
   @override
   Widget build(BuildContext context) {
-    final heightHeader = 280.0;
-    final paddingButtons = 30.0;
+    final heightHeader = 240.0;
+    final paddingButtons = 15.0;
     final opacityImage = 0.5;
     return Container(
       height: heightHeader,
@@ -52,7 +52,7 @@ class Header extends StatelessWidget {
                         height: 10.0,
                       ),
                       Container(
-                        width: 200,
+                        width: 174,
                         child: Text(
                           username,
                           overflow: TextOverflow.clip,

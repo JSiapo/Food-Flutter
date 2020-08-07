@@ -8,17 +8,18 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Header(),
-              // ignore: todo
-              // TODO Add Page view to swipe all screen to change day
-              CalendarHorizontal(
-                daysLimit: 30,
-              ),
-            ],
-          ),
+        child: Column(
+          children: <Widget>[
+            Header(),
+            // ignore: todo
+            // TODO Add Page view to swipe all screen to change day
+            CalendarHorizontal(
+              daysLimit: 30,
+            ),
+            PageView.builder(
+              itemBuilder: null,
+            )
+          ],
         ),
       ),
     );
