@@ -1,18 +1,20 @@
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/helpers/images.gen.dart';
+import 'package:food_app/src/models/user.dart';
 
 class Header extends StatelessWidget {
-  final avatar =
-      'https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg';
-  // 'https://3.bp.blogspot.com/-NAGz3r9a1ZA/XLM60xge2hI/AAAAAAAABR8/KmiboleQ_3QSJnaBc7Vck9JOTQJ9n0l7wCK4BGAYYCw/s1200-pf/Programmer.png';
-  // '';
-  final username = 'Amie Carrie';
-  final header =
-      'https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466_960_720.jpg';
+  // final String avatar;
+  // final String username;
+  final User user;
+
+  Header({this.user});
+
   @override
   Widget build(BuildContext context) {
-    final heightHeader = 240.0;
+    // final heightHeader = 240.0;
+    final heightHeader = MediaQuery.of(context).size.height * 0.3;
     final paddingButtons = 15.0;
     final opacityImage = 0.5;
     return Container(
@@ -27,7 +29,9 @@ class Header extends StatelessWidget {
               Colors.black.withOpacity(opacityImage),
               BlendMode.srcOver,
             ),
-            image: CachedNetworkImageProvider(header)),
+            // image: CachedNetworkImageProvider(
+            //     'https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466_960_720.jpg')),
+            image: AssetImage(IMG.decore.headerJPG)),
       ),
       child: Column(
         children: <Widget>[
@@ -54,7 +58,7 @@ class Header extends StatelessWidget {
                       Container(
                         width: 174,
                         child: Text(
-                          username,
+                          user.userName,
                           overflow: TextOverflow.clip,
                           // softWrap: true,
                           style: TextStyle(
@@ -68,7 +72,7 @@ class Header extends StatelessWidget {
               Expanded(
                 child: SizedBox(),
               ),
-              _avatarImage(avatar)
+              _avatarImage(user.avatar)
             ],
           ),
           SizedBox(
@@ -91,7 +95,7 @@ class Header extends StatelessWidget {
             backgroundColor: Colors.white10,
             radius: 55.0,
             backgroundImage: avatar == ''
-                ? AssetImage('assets/images/blank_user.png')
+                ? AssetImage(IMG.icons.blankuserPNG)
                 : CachedNetworkImageProvider(
                     avatar,
                   ),
