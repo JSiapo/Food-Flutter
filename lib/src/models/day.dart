@@ -1,17 +1,12 @@
-import 'package:flutter/cupertino.dart';
-
 class Day {
   String month;
   String number;
   String nameDay;
-  int key;
-  Day(
-      {@required this.month,
-      @required this.number,
-      @required this.nameDay,
-      @required this.key});
+  String dateTime;
+
+  Day({this.month, this.number, this.nameDay, this.dateTime});
   @override
   String toString() {
-    return "$nameDay $number de $month";
+    return "$nameDay $number $month";
   }
 }
