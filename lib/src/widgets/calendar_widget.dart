@@ -54,7 +54,7 @@ class CalendarHorizontal extends StatelessWidget {
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) => DayCard(
                 snapshot.data[index],
-                snapshot.data[index].dateTime == DateTime.now().strDate(),
+                snapshot.data[index].dateTime == DateTime.now().dateStr(),
               ),
             );
           }
