@@ -1,21 +1,45 @@
 import 'package:flutter/material.dart';
+
 import 'package:food_app/src/models/day.dart';
+
 import 'package:food_app/src/providers/day_provider.dart';
 
+import 'package:food_app/src/widgets/dayCard_widget.dart';
+
+import 'package:food_app/helpers/extensions.dart';
+
 class CalendarHorizontal extends StatelessWidget {
-  // final int daysLimit;
-  final List<Day> days = List<Day>();
-  final DayProvider dayProvider = DayProvider();
+  final DayProvider dayProvider = new DayProvider();
 
   CalendarHorizontal();
+  final PageController _pageViewController = PageController(
+    initialPage: 10,
+    viewportFraction: 0.16,
+  );
 
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
-    final PageController _pageViewController = PageController(
-      initialPage: 8,
-      viewportFraction: 0.16,
-    );
+    _pageViewController.addListener(() {
+      if (_pageViewController.position.pixels ==
+          _pageViewController.position.maxScrollExtent) {
+        _pageViewController.position.animateTo(
+          _pageViewController.position.maxScrollExtent -
+              _screenSize.width * 0.35,
+          duration: Duration(milliseconds: 1000),
+          curve: Curves.elasticOut,
+        );
+      }
+
+      if (_pageViewController.position.pixels ==
+          _pageViewController.position.minScrollExtent) {
+        _pageViewController.position.animateTo(
+          _screenSize.width * 0.3,
+          duration: Duration(milliseconds: 1000),
+          curve: Curves.elasticOut,
+        );
+      }
+    });
     return Container(
       margin: EdgeInsets.only(top: 5.0),
       height: _screenSize.height * 0.14,
@@ -24,10 +48,14 @@ class CalendarHorizontal extends StatelessWidget {
         future: dayProvider.getDays(),
         builder: (BuildContext context, AsyncSnapshot<List<Day>> snapshot) {
           if (snapshot.hasData) {
-            return PageView(
+            return PageView.builder(
               // pageSnapping: false, //* Imantado
               controller: _pageViewController,
-              children: _cardDay(snapshot.data),
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) => DayCard(
+                snapshot.data[index],
+                snapshot.data[index].dateTime == DateTime.now().strDate(),
+              ),
             );
           }
           return Container(
@@ -36,67 +64,5 @@ class CalendarHorizontal extends StatelessWidget {
         },
       ),
     );
-  }
-
-  List<Widget> _cardDay(List<Day> dias) {
-    String month = 'Ago';
-    String nameDay = 'Mié';
-    String number = '12';
-    return dias
-        .map(
-          (e) => GestureDetector(
-            onTap: () {
-              print(e);
-            },
-            child: Container(
-              margin: EdgeInsets.only(
-                  right: 10.0,
-                  top: (e.number == number &&
-                          e.nameDay == nameDay &&
-                          e.month == month)
-                      ? 1.0
-                      : 10.0,
-                  bottom: (e.number == number &&
-                          e.nameDay == nameDay &&
-                          e.month == month)
-                      ? 1.0
-                      : 10.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30.0),
-                color: (e.number == number &&
-                        e.nameDay == nameDay &&
-                        e.month == month)
-                    ? Colors.amber[700]
-                    : Colors.white10,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    height: (e.number == number &&
-                            e.nameDay == nameDay &&
-                            e.month == month)
-                        ? 1.0
-                        : 10.0,
-                  ),
-                  Text(e.month),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Text(
-                    e.number,
-                    style:
-                        TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Text(e.nameDay),
-                ],
-              ),
-            ),
-          ),
-        )
-        .toList();
   }
 }
