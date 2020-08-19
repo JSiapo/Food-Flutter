@@ -33,65 +33,69 @@ class Header extends StatelessWidget {
             //     'https://cdn.pixabay.com/photo/2016/12/26/17/28/food-1932466_960_720.jpg')),
             image: AssetImage(IMG.decore.headerJPG)),
       ),
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 80.0,
-          ),
-          Row(
-            children: <Widget>[
-              Container(
-                  padding: EdgeInsets.only(left: 30.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        'Hola',
-                        style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.normal),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Container(
-                        width: 174,
-                        child: Text(
-                          user.userName,
-                          overflow: TextOverflow.clip,
-                          // softWrap: true,
+      child: SafeArea(
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: heightHeader * 0.2,
+            ),
+            Row(
+              children: <Widget>[
+                Container(
+                    padding: EdgeInsets.only(left: 30.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Hola',
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25.0,
-                              fontWeight: FontWeight.bold),
+                              color: Colors.white70,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.normal),
                         ),
-                      ),
-                    ],
-                  )),
-              Expanded(
-                child: SizedBox(),
-              ),
-              _avatarImage(user.avatar)
-            ],
-          ),
-          SizedBox(
-            height: 30.0,
-          )
-        ],
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Container(
+                          width: 174,
+                          child: Text(
+                            user.userName,
+                            overflow: TextOverflow.clip,
+                            // softWrap: true,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    )),
+                Expanded(
+                  child: SizedBox(),
+                ),
+                _avatarImage(user.avatar, context)
+              ],
+            ),
+            SizedBox(
+              height: 30.0,
+            )
+          ],
+        ),
       ),
     );
   }
 
-  Widget _avatarImage(String avatar) {
+  Widget _avatarImage(String avatar, BuildContext context) {
     final paddingButtons = 30.0;
-    return Container(
+    final avatarWidget = Container(
         padding: EdgeInsets.only(
           right: paddingButtons,
         ),
-        child: IconButton(
-          iconSize: 70.0,
-          icon: CircleAvatar(
+        height: 70.0,
+        width: 100.0,
+        child: GestureDetector(
+          // iconSize: 70.0,
+          child: CircleAvatar(
             backgroundColor: Colors.white10,
             radius: 55.0,
             backgroundImage: avatar == ''
@@ -100,9 +104,13 @@ class Header extends StatelessWidget {
                     avatar,
                   ),
           ),
-          onPressed: () {
-            print('avatar');
+          onTap: () {
+            Navigator.pushNamed(context, '/profile');
           },
         ));
+    return Hero(
+      tag: 'avatar',
+      child: avatarWidget,
+    );
   }
 }

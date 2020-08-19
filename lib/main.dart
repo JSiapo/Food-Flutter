@@ -2,6 +2,8 @@
 // import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/src/screens/home_screen.dart';
+import 'package:food_app/src/screens/profile_screen.dart';
+import 'package:page_transition/page_transition.dart';
 
 // void main() => runApp(
 //       DevicePreview(
@@ -26,8 +28,19 @@ class MyApp extends StatelessWidget {
       ),
       title: 'Food Week',
       initialRoute: '/',
-      routes: <String, WidgetBuilder>{
-        '/': (BuildContext context) => HomePage(),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/':
+            return PageTransition(
+                child: HomePage(), type: PageTransitionType.fade);
+            break;
+          case '/profile':
+            return PageTransition(
+                child: ProfileScreen(), type: PageTransitionType.fade);
+            break;
+          default:
+            return null;
+        }
       },
     );
   }

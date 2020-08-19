@@ -32,6 +32,7 @@ dependencies:
   horizontal_calendar_widget: ^1.0.2
   timeago: ^2.0.26
   flutter_swiper: ^1.1.6
+  page_transition: "^1.1.6"
 
 dev_dependencies:
   flutter_test:

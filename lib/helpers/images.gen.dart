@@ -10,4 +10,5 @@ class _Icons {
 
 class _Decore {
   String get headerJPG => "assets/images/decore/header.jpg";
+  String get loadingGIF => "assets/images/decore/loading.gif";
 }
