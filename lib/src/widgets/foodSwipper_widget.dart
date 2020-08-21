@@ -19,7 +19,10 @@ class FoodSwipper extends StatelessWidget {
       child: Swiper(
         layout: SwiperLayout.STACK,
         itemWidth: _screenSize.width * 1,
-        itemHeight: _screenSize.height * 0.3,
+        itemHeight: _screenSize.height *
+            (MediaQuery.of(context).orientation == Orientation.portrait
+                ? 0.3
+                : 0.7),
         itemCount: images.length,
         onIndexChanged: (value) {
           print("value is $value");

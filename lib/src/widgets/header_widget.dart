@@ -14,7 +14,10 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final heightHeader = 240.0;
-    final heightHeader = MediaQuery.of(context).size.height * 0.3;
+    final heightHeader = MediaQuery.of(context).size.height *
+        (MediaQuery.of(context).orientation == Orientation.portrait
+            ? 0.3
+            : 0.6);
     final paddingButtons = 15.0;
     final opacityImage = 0.5;
     return Container(
@@ -42,6 +45,7 @@ class Header extends StatelessWidget {
             Row(
               children: <Widget>[
                 Container(
+                    // height: 500.0,
                     padding: EdgeInsets.only(left: 30.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

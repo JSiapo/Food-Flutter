@@ -42,7 +42,10 @@ class CalendarHorizontal extends StatelessWidget {
     });
     return Container(
       margin: EdgeInsets.only(top: 5.0),
-      height: _screenSize.height * 0.14,
+      height: _screenSize.height *
+          (MediaQuery.of(context).orientation == Orientation.portrait
+              ? 0.14
+              : 0.28),
       width: double.infinity,
       child: FutureBuilder(
         future: dayProvider.getDays(),
