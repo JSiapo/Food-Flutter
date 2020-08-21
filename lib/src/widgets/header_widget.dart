@@ -62,9 +62,13 @@ class Header extends StatelessWidget {
                         ),
                         Container(
                           width: 174,
+                          height: MediaQuery.of(context).orientation ==
+                                  Orientation.portrait
+                              ? 100
+                              : 70,
                           child: Text(
                             user.userName,
-                            overflow: TextOverflow.clip,
+                            overflow: TextOverflow.ellipsis,
                             // softWrap: true,
                             style: TextStyle(
                                 color: Colors.white,
