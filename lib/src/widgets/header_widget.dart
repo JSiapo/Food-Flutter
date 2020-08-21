@@ -16,7 +16,7 @@ class Header extends StatelessWidget {
     // final heightHeader = 240.0;
     final heightHeader = MediaQuery.of(context).size.height *
         (MediaQuery.of(context).orientation == Orientation.portrait
-            ? 0.3
+            ? 0.35
             : 0.6);
     final paddingButtons = 15.0;
     final opacityImage = 0.5;

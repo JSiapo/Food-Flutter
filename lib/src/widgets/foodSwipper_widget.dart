@@ -4,6 +4,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:food_app/helpers/images.gen.dart';
 
 class FoodSwipper extends StatelessWidget {
+  Size _screenSize;
   final images = [
     "https://cdn.pixabay.com/photo/2017/03/23/19/57/asparagus-2169305_960_720.jpg",
     "https://cdn.pixabay.com/photo/2017/01/30/13/49/pancakes-2020863_960_720.jpg",
@@ -12,25 +13,60 @@ class FoodSwipper extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    final _screenSize = MediaQuery.of(context).size;
+    _screenSize = MediaQuery.of(context).size;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Swiper(
-        layout: SwiperLayout.STACK,
-        itemWidth: _screenSize.width * 1,
-        itemHeight: _screenSize.height *
-            (MediaQuery.of(context).orientation == Orientation.portrait
-                ? 0.3
-                : 0.7),
+      child: _list(context),
+    );
+  }
+
+  // Widget _swiper(BuildContext context) {
+  //   return Swiper(
+  //     layout: SwiperLayout.STACK,
+  //     itemWidth: _screenSize.width * 1,
+  //     itemHeight: _screenSize.height *
+  //         (MediaQuery.of(context).orientation == Orientation.portrait
+  //             ? 0.3
+  //             : 0.7),
+  //     itemCount: images.length,
+  //     onIndexChanged: (value) {
+  //       print("value is $value");
+  //     },
+  //     itemBuilder: (context, index) {
+  //       return ClipRRect(
+  //         borderRadius: BorderRadius.circular(20.0),
+  //         child: Container(
+  //           child: FadeInImage(
+  //             fadeInDuration: Duration(
+  //               milliseconds: 500,
+  //             ),
+  //             fit: BoxFit.cover,
+  //             image: CachedNetworkImageProvider(
+  //               images[index],
+  //             ),
+  //             placeholder: AssetImage(IMG.decore.loadingGIF),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+  Widget _list(BuildContext context) {
+    return Container(
+      width: _screenSize.width,
+      height: _screenSize.height *
+          (MediaQuery.of(context).orientation == Orientation.portrait
+              ? 0.25
+              : 0.7),
+      child: PageView.builder(
+        controller: PageController(viewportFraction: 0.9),
         itemCount: images.length,
-        onIndexChanged: (value) {
-          print("value is $value");
-        },
         itemBuilder: (context, index) {
           return ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: Container(
+            borderRadius: BorderRadius.circular(30.0),
+            child: Card(
               child: FadeInImage(
                 fadeInDuration: Duration(
                   milliseconds: 500,

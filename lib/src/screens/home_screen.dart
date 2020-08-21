@@ -28,7 +28,11 @@ class HomePage extends StatelessWidget {
               Header(user: user),
               CalendarHorizontal(),
               ChipCalendar(Day(dateTime: '20-08-2020')),
-              FoodSwipper(),
+              Container(
+                child: FoodSwipper(),
+                // color: Colors.red,
+              ),
+              // FoodSwipper()
             ]),
           )
         ],
